@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "818522047345",
+    "firebase_url": "https://pornbase-45c5c-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "pornbase-45c5c",
+    "storage_bucket": "pornbase-45c5c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:818522047345:android:2797cc46b8eb1855122cd0",
+        "android_client_info": {
+          "package_name": "com.example.pharmacymanagerment"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "818522047345-glarolionso0hl2o95h6g4het9l783pn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvlX4wiGe6n0V2--AKk40KV6yr0Z2hY4U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "818522047345-glarolionso0hl2o95h6g4het9l783pn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

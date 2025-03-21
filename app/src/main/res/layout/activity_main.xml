@@ -1,0 +1,74 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/main"
+    android:background="@color/white"
+    android:layout_height="match_parent">
+
+    <!-- Nội dung chính của bạn -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/nav_host_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottom_nav"
+        android:layout_below="@+id/view"
+        android:layout_marginTop="0dp" >
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Bottom Navigation View -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        app:itemIconTint="@color/bottom_nav_icon_color"
+        app:backgroundTint="@color/white"
+        app:itemTextColor="@color/app_color"
+        app:itemActiveIndicatorStyle="@color/app_color"
+        android:foregroundGravity="bottom"
+        app:menu="@menu/bottom_nav_menu" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
+        android:background="@color/app_color"
+        android:backgroundTint="@color/app_color" />
+
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="100dp"
+        android:background="@drawable/search_corner"
+        android:closeIcon="@drawable/baseline_close_24"
+        android:queryHint="Tìm kiếm..."
+        android:searchIcon="@drawable/search_interface_symbol__2_" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="16dp"
+        app:srcCompat="@drawable/online_shopping" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="16dp"
+        android:layout_toStartOf="@+id/imageView"
+        app:srcCompat="@drawable/bell" />
+
+</RelativeLayout>

@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/home"
+        android:title="Trang chủ" />
+    <item
+        android:id="@+id/nav_medicine"
+        android:icon="@drawable/medicine"
+        android:title="Danh mục" />
+    <item
+        android:id="@+id/nav_order"
+        android:icon="@drawable/writing"
+        android:title="Đơn hàng" />
+    <item
+        android:id="@+id/nav_me"
+        android:icon="@drawable/user"
+        android:title="Cá nhân" />
+</menu>
