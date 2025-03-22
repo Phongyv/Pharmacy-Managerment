@@ -1,14 +1,20 @@
 package com.example.pharmacymanagerment;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.denzcoskun.imageslider.ImageSlider;
@@ -23,9 +29,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
-
+    private static final int REQUEST_CALL = 1;
+    private String phoneNumber = "0984045608";
     View view9,view10,view11,view12;
-
+    View view8;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -64,6 +71,9 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        view8 = view.findViewById(R.id.view8);
+        view8.setOnClickListener(v -> makePhoneCall());
+
         // Now that the layout is inflated, you can find your ImageSlider
         ImageSlider imageSlider = view.findViewById(R.id.image_slider); // Correct: Use 'view' here
         // Create a list of SlideModels
@@ -100,5 +110,26 @@ public class HomeFragment extends Fragment {
 //        lineChart.invalidate(); // Làm mới biểu đồ
 
         return view; // Return the inflated layout
+    }
+    private void makePhoneCall() {
+        if (ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+            Intent intent = new Intent(Intent.ACTION_CALL);
+            intent.setData(Uri.parse("tel:" + phoneNumber));
+            startActivity(intent);
+        } else {
+            ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_CALL) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                makePhoneCall(); // If permission is granted, make the call again
+            } else {
+                Toast.makeText(requireContext(), "Vui lòng cấp quyền cuộc gọi", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

@@ -1,11 +1,14 @@
 package com.example.pharmacymanagerment;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.SearchView;
 
 import androidx.activity.EdgeToEdge;
@@ -22,6 +25,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class MainActivity extends AppCompatActivity {
 
     SearchView searchView;
+    ImageView cart,notification;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +40,23 @@ public class MainActivity extends AppCompatActivity {
         window.setStatusBarColor(getColor(R.color.app_color));
 
         searchView = findViewById(R.id.searchView);
+        cart = findViewById(R.id.imageView);
+        notification = findViewById(R.id.imageView2);
+        cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,CartActivity.class);
+                startActivity(intent);
+            }
+        });
 
+        notification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,NotificationActivity.class);
+                startActivity(intent);
+            }
+        });
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
         bottomNav.setOnItemSelectedListener(navListener);
