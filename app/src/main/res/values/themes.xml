@@ -7,4 +7,9 @@
     </style>
 
     <style name="Theme.PharmacyManagerment" parent="Base.Theme.PharmacyManagerment" />
+
+
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
 </resources>

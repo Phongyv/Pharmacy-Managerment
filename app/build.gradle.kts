@@ -32,6 +32,7 @@ android {
     }
     buildFeatures{
         viewBinding = true
+        dataBinding = true
     }
 }
 
@@ -44,6 +45,12 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
+    implementation("com.google.android.gms:play-services-basement:18.2.0")
+
+    implementation("androidx.lifecycle:lifecycle-viewmodel:2.6.2")
+    implementation("androidx.lifecycle:lifecycle-livedata:2.6.2")
+    implementation("androidx.databinding:databinding-runtime:8.2.1")
 
     implementation(platform("com.google.firebase:firebase-bom:33.10.0"))
     implementation("com.google.firebase:firebase-analytics")

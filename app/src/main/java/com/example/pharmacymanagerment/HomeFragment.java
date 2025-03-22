@@ -1,5 +1,6 @@
 package com.example.pharmacymanagerment;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -23,11 +24,45 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
 
-    @Nullable
+    View view9,view10,view11,view12;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        view9 = view.findViewById(R.id.view9);
+        view10 = view.findViewById(R.id.view10);
+        view11 = view.findViewById(R.id.view11);
+        view12 = view.findViewById(R.id.view12);
+        view9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(requireContext(), CodomActivity.class);
+                startActivity(intent);
+            }
+        });
+        view10.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(requireContext(), MedicineActivity.class);
+                startActivity(intent);
+            }
+        });
+        view11.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(requireContext(), VitaminActivity.class);
+                startActivity(intent);
+            }
+        });
+        view12.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(requireContext(), ComesticActivity.class);
+                startActivity(intent);
+            }
+        });
 
         // Now that the layout is inflated, you can find your ImageSlider
         ImageSlider imageSlider = view.findViewById(R.id.image_slider); // Correct: Use 'view' here
