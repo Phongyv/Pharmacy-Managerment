@@ -51,10 +51,12 @@ public class ProductAdapter extends BaseAdapter {
 
         // Sử dụng Glide để tải hình ảnh
         Glide.with(context).load(medicine.getImg()).into(imageView);
+
         nameView.setText(medicine.getName());
         priceView.setText(medicine.getPrice()+"đ");
 
         return view;
     }
+
 }
 

@@ -7,15 +7,26 @@ public class Product {
     private String des;
     private double price;
 
+    private String id;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     // Cần một constructor không tham số để Firestore sử dụng
     public Product() {}
 
-    public Product(String name, String img, String type, String des, double price) {
+    public Product(String name, String img, String type, String des, double price,String id) {
         this.name = name;
         this.img = img;
         this.type = type;
         this.des = des;
         this.price = price;
+        this.id = id;
     }
 
     public double getPrice() {
