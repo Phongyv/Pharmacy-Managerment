@@ -27,11 +27,11 @@ public class ProductItem extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_product_item);
+
         imageView25 = findViewById(R.id.imageView25);
         textView26 = findViewById(R.id.textView26);
         textView27 = findViewById(R.id.textView27);
         textView29 = findViewById(R.id.textView29);
-        textView31 = findViewById(R.id.textView31);
 
         firestore = FirebaseFirestore.getInstance();
         String productId = getIntent().getStringExtra("product_id");
@@ -51,15 +51,6 @@ public class ProductItem extends AppCompatActivity {
                             textView27.setText(price +"đ");
                             textView29.setText(des);
 
-                            if(Objects.equals(type, "medicine")){
-                                textView31.setText("Thuoc");
-                            } else if (Objects.equals(type, "codom")) {
-                                textView31.setText("Bao cao su");
-                            } else if (Objects.equals(type, "vitamin")) {
-                                textView31.setText("Vitamin");
-                            }else if (Objects.equals(type, "comestic")) {
-                                textView31.setText("My pham");
-                            }
                         }
                     });
         }
