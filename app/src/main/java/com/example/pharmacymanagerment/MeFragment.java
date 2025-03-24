@@ -1,5 +1,6 @@
 package com.example.pharmacymanagerment;
 
+import static android.content.ContentValues.TAG;
 import static android.widget.Toast.LENGTH_SHORT;
 
 import android.content.Intent;
@@ -23,7 +24,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import java.util.HashMap;
+import java.util.Map;
 
 public class MeFragment extends Fragment {
     private GoogleSignInClient mGoogleSignInClient;
@@ -40,6 +45,7 @@ public class MeFragment extends Fragment {
             String name = account.getDisplayName(); // Tên hiển thị
             String email = account.getEmail(); // Địa chỉ email
             String photoUrl = account.getPhotoUrl() != null ? account.getPhotoUrl().toString() : null;
+
             //render data
             TextView textView32 = view.findViewById(R.id.textView32);
             TextView textView33 = view.findViewById(R.id.textView33);
@@ -70,7 +76,6 @@ public class MeFragment extends Fragment {
                 signOut();
             }
         });
-
 
 
         return view;

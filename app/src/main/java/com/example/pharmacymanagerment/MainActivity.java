@@ -1,8 +1,11 @@
 package com.example.pharmacymanagerment;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -10,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -20,10 +24,20 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
+    private GoogleSignInClient mGoogleSignInClient;
     SearchView searchView;
     ImageView cart,notification;
 
@@ -33,6 +47,35 @@ public class MainActivity extends AppCompatActivity {
 
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        if (account != null) {
+            String id = account.getId(); // id
+            String name = account.getDisplayName(); // Tên hiển thị
+            String email = account.getEmail(); // Địa chỉ email
+            db.collection("users") // Thay 'users' bằng tên collection bạn muốn truy vấn
+                    .get()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                if(!document.getId().equals(id)){
+                                    Map<String, Object> userData = new HashMap<>();
+                                    userData.put("userId",id);
+                                    userData.put("name", name);
+                                    userData.put("email", email);
+                                    db.collection("users").document(id)
+                                            .set(userData)
+                                            .addOnSuccessListener(aVoid -> Log.d(TAG, "User document successfully created!"))
+                                            .addOnFailureListener(e -> Log.w(TAG, "Error creating user document", e));
+                                }
+                            }
+                        } else {
+                            Log.w("Firestore", "Error getting documents.", task.getException());
+                        }
+                    });
+        }
 
         Window window = getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);

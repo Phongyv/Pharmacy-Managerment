@@ -27,8 +27,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
     TextView titleTextView;
     private static final int RC_SIGN_IN = 9001;
     private GoogleSignInClient mGoogleSignInClient;
-
+    private FirebaseAuth mAuth;
     private FirebaseFirestore db;
 
     @Override
@@ -53,6 +55,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         db = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
         //logic login
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -120,23 +123,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         if (account != null) {
-            db.collection("users").get()
-                    .addOnSuccessListener(queryDocumentSnapshots -> {
-                        for (DocumentSnapshot document : queryDocumentSnapshots) {
-                                String userId = document.getId();
-                                if(!Objects.equals(userId, account.getId())){
-                                    Map<String, Object> userData = new HashMap<>();
-                                    userData.put("userId", account.getId());
-                                    userData.put("name", account.getDisplayName());
-                                    userData.put("email", account.getEmail());
-                                    assert userId != null;
-                                    db.collection("users").document(userId).set(userData)
-                                            .addOnSuccessListener(aVoid -> Log.d("Firestore", "Người dùng mới đã được tạo!"))
-                                            .addOnFailureListener(e -> Log.e("Firestore", "Lỗi khi tạo người dùng!", e));
-                                }
-                        }
-                    })
-                    .addOnFailureListener(e -> Log.e("Firestore", "Lỗi lấy danh sách userId", e));
 
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
