@@ -44,14 +44,17 @@ public class MeFragment extends Fragment {
             TextView textView32 = view.findViewById(R.id.textView32);
             TextView textView33 = view.findViewById(R.id.textView33);
             TextView textView34 = view.findViewById(R.id.textView34);
-            textView32.setText("Id:"+id);
-            textView33.setText("Tên:"+name);
-            textView34.setText("Email:"+email);
+            textView32.setText(id);
+            textView33.setText(name);
+            textView34.setText(email);
             ImageView imageView28 = view.findViewById(R.id.imageView28);
-            Glide.with(requireContext())
-                    .load(photoUrl)
-                    .transform(new RoundedCornersTransformation(500)) // Chỉnh sửa 30 để thay đổi độ bo tròn
-                    .into(imageView28);
+            if (photoUrl != null){
+                Glide.with(requireContext())
+                        .load(photoUrl)
+                        .transform(new RoundedCornersTransformation(50)) // Chỉnh sửa 30 để thay đổi độ bo tròn
+                        .into(imageView28);
+            }
+
         } // Ảnh đại diện
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)

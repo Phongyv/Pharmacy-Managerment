@@ -5,7 +5,7 @@
     android:layout_width="160dp"
     android:layout_height="200dp"
     android:orientation="vertical"
-    android:backgroundTint="@color/white_smoke"
+    android:background="@drawable/grid_item_border"
     android:padding="8dp">
 
     <ImageView

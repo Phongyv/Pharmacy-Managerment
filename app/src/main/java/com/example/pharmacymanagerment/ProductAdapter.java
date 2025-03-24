@@ -50,7 +50,10 @@ public class ProductAdapter extends BaseAdapter {
         Product medicine = medicineList.get(position);
 
         // Sử dụng Glide để tải hình ảnh
-        Glide.with(context).load(medicine.getImg()).into(imageView);
+        Glide.with(context)
+                .load(medicine.getImg())
+                .transform(new RoundedCornersTransformation(50)) // Chỉnh sửa 30 để thay đổi độ bo tròn
+                .into(imageView);
 
         nameView.setText(medicine.getName());
         priceView.setText(medicine.getPrice()+"đ");
