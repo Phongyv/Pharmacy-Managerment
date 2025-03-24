@@ -1,5 +1,7 @@
 package com.example.pharmacymanagerment;
 
+import static android.widget.Toast.LENGTH_SHORT;
+
 import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.net.Uri;
@@ -9,6 +11,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import androidx.activity.EdgeToEdge;
@@ -88,10 +91,12 @@ public class LoginActivity extends AppCompatActivity {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
             // Đăng nhập thành công, chuyển đến màn hình chính
+            Toast.makeText(this,"Đăng nhập thành công",LENGTH_SHORT).show();
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             finish(); // Kết thúc Activity đăng nhập
         } catch (ApiException e) {
+            Toast.makeText(this,"Đăng nhập thất bại",LENGTH_SHORT).show();
             Log.w("LoginActivity", "signInResult:failed code=" + e.getStatusCode());
         }
     }
