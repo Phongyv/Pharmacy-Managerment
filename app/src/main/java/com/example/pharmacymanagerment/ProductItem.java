@@ -1,11 +1,13 @@
 package com.example.pharmacymanagerment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,7 +27,7 @@ import java.util.Objects;
 public class ProductItem extends AppCompatActivity {
 
     private FirebaseFirestore firestore;
-    ImageView imageView25;
+    ImageView imageView25,imageView26;
     TextView textView26,textView27,textView29;
     Button button;
     private FirebaseFirestore db;
@@ -40,6 +42,7 @@ public class ProductItem extends AppCompatActivity {
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
 
         imageView25 = findViewById(R.id.imageView25);
+        imageView26 = findViewById(R.id.imageView26);
         textView26 = findViewById(R.id.textView26);
         textView27 = findViewById(R.id.textView27);
         textView29 = findViewById(R.id.textView29);
@@ -74,8 +77,16 @@ public class ProductItem extends AppCompatActivity {
                     String id = account.getId(); // id
                     DocumentReference userRef = db.collection("users").document(id);
                     userRef.update("cart", FieldValue.arrayUnion(productId));
+                    showAdd("Đã thêm vào giỏ hàng");
                 }
 
+            }
+        });
+        imageView26 = findViewById(R.id.imageView26);
+        imageView26.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 
@@ -84,5 +95,8 @@ public class ProductItem extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+    public void showAdd(String message){
+        Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
     }
 }

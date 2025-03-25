@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,9 +29,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     private FirebaseFirestore db;
     private String userId;
     private Context context;
-
     private GoogleSignInAccount account;
-
 
     public CartAdapter(Context context,List<Map<String, Object>> cartItems,String userId) {
         this.cartItems = cartItems;
@@ -103,9 +102,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                             db.collection("users").document(userId)
                                     .update("cart", cart)
                                     .addOnSuccessListener(aVoid -> {
-                                        cartItems.remove(position);
-                                        notifyItemRemoved(position);
-                                        Log.d("Firestore", "Sản phẩm đã được xóa thành công");
+                                        if (position >= 0 && position < cartItems.size()){
+                                            cartItems.remove(position);
+                                            notifyItemRemoved(position);
+                                            Toast.makeText(context,"Sản phẩm đã được xóa thành công",Toast.LENGTH_SHORT).show();
+                                        }else {
+                                            Toast.makeText(context, "Lỗi: Vị trí không hợp lệ - position: " + position + ", size: " + cartItems.size(),Toast.LENGTH_SHORT).show();
+                                        }
                                     })
                                     .addOnFailureListener(e -> Log.e("Firestore", "Lỗi khi cập nhật giỏ hàng", e));
                         }

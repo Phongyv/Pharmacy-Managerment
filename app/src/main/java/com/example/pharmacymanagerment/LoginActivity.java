@@ -123,7 +123,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         if (account != null) {
-
+            NotificationHelper notificationHelper = new NotificationHelper(this);
+            notificationHelper.showNotification("Pharmacy Managerment", "Xin chào " + account.getDisplayName());
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             finish();

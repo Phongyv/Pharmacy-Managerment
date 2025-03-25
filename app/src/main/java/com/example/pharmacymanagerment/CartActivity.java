@@ -1,7 +1,12 @@
 package com.example.pharmacymanagerment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,6 +28,8 @@ public class CartActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private CartAdapter cartAdapter;
     private List<Map<String, Object>> cartItems;
+    ImageView imageView29;
+    Button button3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +47,21 @@ public class CartActivity extends AppCompatActivity {
                 recyclerView.setAdapter(cartAdapter);
                 getProductsFromCart(account.getId());
         }
+        imageView29 = findViewById(R.id.imageView29);
+        imageView29.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        button3 = findViewById(R.id.button3);
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CartActivity.this, OrderActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void getProductsFromCart(String userId) {
@@ -55,12 +77,15 @@ public class CartActivity extends AppCompatActivity {
                                 cartItems.clear();
                                 fetchProductDetails(cart);
                             } else {
+                                Toast.makeText(this,"Giỏ hàng trống.",Toast.LENGTH_SHORT).show();
                                 Log.d("Firestore", "Giỏ hàng trống.");
                             }
                         } else {
+                            Toast.makeText(this,"Không tìm thấy tài khoản người dùng.",Toast.LENGTH_SHORT).show();
                             Log.d("Firestore", "Không tìm thấy tài khoản người dùng.");
                         }
                     } else {
+                        Toast.makeText(this,"Lỗi khi lấy giỏ hàng: ",Toast.LENGTH_SHORT).show();
                         Log.e("Firestore", "Lỗi khi lấy giỏ hàng: ", task.getException());
                     }
                 });
@@ -82,6 +107,7 @@ public class CartActivity extends AppCompatActivity {
                                 productData.put("img", productDocument.getString("img"));
                                 products.add(productData);
                             } else {
+                                Toast.makeText(this,"Không tìm thấy sản phẩm: ",Toast.LENGTH_SHORT).show();
                                 Log.d("Firestore", "Không tìm thấy sản phẩm: " + productId);
                             }
 
@@ -91,6 +117,7 @@ public class CartActivity extends AppCompatActivity {
                                 cartAdapter.notifyDataSetChanged();
                             }
                         } else {
+                            Toast.makeText(this,"Lỗi không tìm thấy sản phẩm: ",Toast.LENGTH_SHORT).show();
                             Log.e("Firestore", "Lỗi khi lấy sản phẩm: ", productTask.getException());
                         }
                     });

@@ -53,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+
+
+
         if (account != null) {
             String id = account.getId(); // ID người dùng
             String name = account.getDisplayName(); // Tên hiển thị
@@ -70,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
                         userData.put("name", name);
                         userData.put("email", email);
                         userData.put("cart", new ArrayList<>()); // Tạo giỏ hàng mới
+
+
 
                         userDoc.set(userData)
                                 .addOnSuccessListener(aVoid -> Log.d(TAG, "User document successfully created!"))
@@ -134,4 +139,5 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, selectedFragment).commit();
         return true;
     };
+
 }
