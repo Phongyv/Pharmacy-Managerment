@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
         if (account != null) {
             String id = account.getId(); // ID người dùng
             String name = account.getDisplayName(); // Tên hiển thị
@@ -120,8 +121,24 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent); // Cập nhật Intent mới
+
+        // Kiểm tra nếu cần mở OrderFragment
+        if ("OrderFragment".equals(intent.getStringExtra("open_fragment"))) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.nav_host_fragment, new OrderFragment())
+                    .addToBackStack(null)
+                    .commit();
+        }
+    }
+
+
     // Listener cho Bottom Navigation
     private final BottomNavigationView.OnItemSelectedListener navListener = item -> {
+        Log.d("BottomNav", "Item selected: " + item.getItemId());
         Fragment selectedFragment = null;
         int itemId = item.getItemId();
         if (itemId == R.id.nav_home) {
@@ -132,11 +149,17 @@ public class MainActivity extends AppCompatActivity {
             selectedFragment = new OrderFragment();
         } else if (itemId == R.id.nav_me) {
             selectedFragment = new MeFragment();
-        } else {
+        } else if (getIntent() != null && "OrderFragment".equals(getIntent().getStringExtra("open_fragment"))) {
+            selectedFragment = new OrderFragment();
+        } else{
             return false;
         }
         // Thay thế Fragment
-        getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, selectedFragment).commit();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.nav_host_fragment, selectedFragment)
+                .commit();
+
+        Log.d("BottomNav", "Fragment changed to: " + selectedFragment.getClass().getSimpleName());
         return true;
     };
 

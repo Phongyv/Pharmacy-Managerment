@@ -1,6 +1,7 @@
 package com.example.pharmacymanagerment;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -36,6 +37,9 @@ public class CartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
 
+        NotificationHelper notificationHelper = new NotificationHelper(this);
+
+
         db = FirebaseFirestore.getInstance();
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
 
@@ -58,8 +62,12 @@ public class CartActivity extends AppCompatActivity {
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CartActivity.this, OrderActivity.class);
+                Intent intent = new Intent(CartActivity.this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                intent.putExtra("open_fragment", "OrderFragment");
+                notificationHelper.showNotification("Pharmacy Managerment", "Tạo đơn hàng thành công");
                 startActivity(intent);
+                finish();
             }
         });
     }
@@ -123,4 +131,5 @@ public class CartActivity extends AppCompatActivity {
                     });
         }
     }
+
 }

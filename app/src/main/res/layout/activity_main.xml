@@ -7,15 +7,15 @@
     android:layout_height="match_parent">
 
     <!-- Nội dung chính của bạn -->
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
         android:id="@+id/nav_host_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/bottom_nav"
         android:layout_below="@+id/view"
-        android:layout_marginTop="0dp" >
+        android:layout_marginTop="0dp">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
 
     <!-- Bottom Navigation View -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -23,9 +23,9 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_alignParentBottom="true"
-        app:itemIconTint="@color/bottom_nav_icon_color"
+        app:itemIconTint="@color/selector_nav_icon"
+        app:itemTextColor="@color/selector_nav_text"
         app:backgroundTint="@color/white"
-        app:itemTextColor="@color/app_color"
         app:itemActiveIndicatorStyle="@color/app_color"
         android:foregroundGravity="bottom"
         app:menu="@menu/bottom_nav_menu" />
