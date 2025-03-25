@@ -32,6 +32,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -65,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
                                     userData.put("userId",id);
                                     userData.put("name", name);
                                     userData.put("email", email);
+                                    userData.put("cart",new ArrayList<>());
                                     db.collection("users").document(id)
                                             .set(userData)
                                             .addOnSuccessListener(aVoid -> Log.d(TAG, "User document successfully created!"))

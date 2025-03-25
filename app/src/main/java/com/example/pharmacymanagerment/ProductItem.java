@@ -2,6 +2,8 @@ package com.example.pharmacymanagerment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,6 +14,10 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Objects;
@@ -20,13 +26,18 @@ public class ProductItem extends AppCompatActivity {
 
     private FirebaseFirestore firestore;
     ImageView imageView25;
-    TextView textView26,textView27,textView29,textView31;
+    TextView textView26,textView27,textView29;
+    Button button;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_product_item);
+
+        db = FirebaseFirestore.getInstance();
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
 
         imageView25 = findViewById(R.id.imageView25);
         textView26 = findViewById(R.id.textView26);
@@ -54,6 +65,19 @@ public class ProductItem extends AppCompatActivity {
                         }
                     });
         }
+
+        button = findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (account!=null){
+                    String id = account.getId(); // id
+                    DocumentReference userRef = db.collection("users").document(id);
+                    userRef.update("cart", FieldValue.arrayUnion(productId));
+                }
+
+            }
+        });
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
