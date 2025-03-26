@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.firestore.DocumentReference;
@@ -31,6 +32,7 @@ public class CartActivity extends AppCompatActivity {
     private List<Map<String, Object>> cartItems;
     ImageView imageView29;
     Button button3;
+    private ShimmerFrameLayout shimmerFrameLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +40,8 @@ public class CartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cart);
 
         NotificationHelper notificationHelper = new NotificationHelper(this);
-
+        shimmerFrameLayout = findViewById(R.id.shimmer_view_container);
+        shimmerFrameLayout.startShimmer();
 
         db = FirebaseFirestore.getInstance();
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
@@ -123,6 +126,8 @@ public class CartActivity extends AppCompatActivity {
                                 cartItems.clear();
                                 cartItems.addAll(products);
                                 cartAdapter.notifyDataSetChanged();
+                                shimmerFrameLayout.stopShimmer();
+                                shimmerFrameLayout.setVisibility(View.GONE);
                             }
                         } else {
                             Toast.makeText(this,"Lỗi không tìm thấy sản phẩm: ",Toast.LENGTH_SHORT).show();

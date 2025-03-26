@@ -3,11 +3,13 @@ package com.example.pharmacymanagerment;
 import static android.content.ContentValues.TAG;
 import static android.widget.Toast.LENGTH_SHORT;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -73,7 +75,7 @@ public class MeFragment extends Fragment {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                signOut();
+                showLogoutDialog();
             }
         });
 
@@ -86,9 +88,33 @@ public class MeFragment extends Fragment {
             Log.d("ProfileFragment", "Đăng xuất thành công");
             // Quay trở lại LoginActivity
             Intent intent = new Intent(requireActivity(), LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             requireActivity().finish();
         });
+    }
+
+    private void showLogoutDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setTitle("Xác nhận đăng xuất");
+        builder.setMessage("Bạn có chắc chắn muốn đăng xuất?");
+
+        builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                signOut();
+            }
+        });
+
+        builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss(); // Đóng hộp thoại
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }
 

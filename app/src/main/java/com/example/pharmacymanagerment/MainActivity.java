@@ -55,8 +55,6 @@ public class MainActivity extends AppCompatActivity {
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
 
 
-
-
         if (account != null) {
             String id = account.getId(); // ID người dùng
             String name = account.getDisplayName(); // Tên hiển thị
