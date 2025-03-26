@@ -30,7 +30,7 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
     private static final int REQUEST_CALL = 1;
-    private String phoneNumber = "0984045608";
+    private String phoneNumber = "0876066774";
     View view9,view10,view11,view12;
     View view8;
     @Override
