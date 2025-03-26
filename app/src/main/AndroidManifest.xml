@@ -5,11 +5,11 @@
     <uses-feature
         android:name="android.hardware.telephony"
         android:required="false" />
+
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
 
     <application
         android:allowBackup="true"
@@ -21,7 +21,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PharmacyManagerment"
         tools:targetApi="31">
-
+        <activity
+            android:name=".Admin"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="false" />
@@ -73,12 +75,15 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="momo"/>
-                <data android:host="paymentresult"/>
-                <data android:scheme="zalopay"/>
-                <data android:host="paymentresult"/>
+
+                <data android:scheme="momo" />
+                <data android:host="paymentresult" />
+                <data android:scheme="zalopay" />
+                <data android:host="paymentresult" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

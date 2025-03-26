@@ -34,7 +34,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/view14"
         app:layout_constraintStart_toStartOf="@+id/view14"
         app:layout_constraintTop_toTopOf="@+id/view14"
-        tools:src="@tools:sample/avatars" />
+        tools:src="@drawable/medical_cross" />
 
     <TextView
         android:id="@+id/textView32"

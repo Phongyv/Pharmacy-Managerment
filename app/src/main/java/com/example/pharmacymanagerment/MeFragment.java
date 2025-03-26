@@ -5,6 +5,7 @@ import static android.widget.Toast.LENGTH_SHORT;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -61,8 +62,11 @@ public class MeFragment extends Fragment {
                         .load(photoUrl)
                         .transform(new RoundedCornersTransformation(50)) // Chỉnh sửa 30 để thay đổi độ bo tròn
                         .into(imageView28);
+            } else{
+                Glide.with(requireContext())
+                        .load(R.drawable.medical_cross)
+                        .into(imageView28);
             }
-
         } // Ảnh đại diện
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
