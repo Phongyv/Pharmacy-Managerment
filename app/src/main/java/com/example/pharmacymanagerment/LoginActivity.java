@@ -122,20 +122,31 @@ public class LoginActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+
         if (account != null) {
-            if (Objects.equals(account.getId(), "105645884907287750244")){
-                NotificationHelper notificationHelper = new NotificationHelper(this);
-                notificationHelper.showNotification("Pharmacy Managerment", "Xin chào Admin " + account.getDisplayName());
-                Intent intent = new Intent(this, Admin.class);
-                startActivity(intent);
-                finish();
-            } else {
-                NotificationHelper notificationHelper = new NotificationHelper(this);
-                notificationHelper.showNotification("Pharmacy Managerment", "Xin chào " + account.getDisplayName());
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
+            String userEmail = account.getEmail(); // Lấy email của người đăng nhập
+
+            db.collection("admins") // Giả sử bạn có collection "admins" chứa danh sách email Admin
+                    .whereEqualTo("email", userEmail) // Kiểm tra email có trong danh sách Admin không
+                    .get()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful() && !task.getResult().isEmpty()) {
+                            // Nếu email tồn tại trong danh sách Admin
+                            new NotificationHelper(this).showNotification(
+                                    "Pharmacy Managerment", "Xin chào Admin " + account.getDisplayName()
+                            );
+                            startActivity(new Intent(this, Admin.class));
+                        } else {
+                            // Nếu không phải Admin
+                            new NotificationHelper(this).showNotification(
+                                    "Pharmacy Managerment", "Xin chào " + account.getDisplayName()
+                            );
+                            startActivity(new Intent(this, MainActivity.class));
+                        }
+                        finish();
+                    })
+                    .addOnFailureListener(e -> Log.e("LoginActivity", "Lỗi kiểm tra Admin", e));
         }
     }
+
 }

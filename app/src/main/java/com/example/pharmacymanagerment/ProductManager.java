@@ -66,3 +66,4 @@ public class ProductManager {
 //productManager.addProduct("Paracetamol", 50000, "Thuốc giảm đau, hạ sốt", "https://example.com/paracetamol.jpg");
 //productManager.updateProduct("id_san_pham", "Paracetamol Extra", 60000, "Thuốc giảm đau mạnh hơn", "https://example.com/newimage.jpg");
 //productManager.deleteProduct("id_san_pham");
+

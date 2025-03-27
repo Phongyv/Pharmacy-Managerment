@@ -51,6 +51,11 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
+        Window window = getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(getColor(R.color.app_color));
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
 
@@ -88,10 +93,7 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
-        Window window = getWindow();
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(getColor(R.color.app_color));
+
 
         searchView = findViewById(R.id.searchView);
         cart = findViewById(R.id.imageView);
