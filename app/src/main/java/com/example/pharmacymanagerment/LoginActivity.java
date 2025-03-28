@@ -126,7 +126,7 @@ public class LoginActivity extends AppCompatActivity {
         if (account != null) {
             String userEmail = account.getEmail(); // Lấy email của người đăng nhập
 
-            db.collection("admins") // Giả sử bạn có collection "admins" chứa danh sách email Admin
+            db.collection("admin") // Giả sử bạn có collection "admins" chứa danh sách email Admin
                     .whereEqualTo("email", userEmail) // Kiểm tra email có trong danh sách Admin không
                     .get()
                     .addOnCompleteListener(task -> {

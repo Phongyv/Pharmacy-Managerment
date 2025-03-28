@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "818522047345",
-    "firebase_url": "https://pornbase-45c5c-default-rtdb.asia-southeast1.firebasedatabase.app",
-    "project_id": "pornbase-45c5c",
-    "storage_bucket": "pornbase-45c5c.firebasestorage.app"
+    "project_number": "823008181343",
+    "firebase_url": "https://pornbase-725c8-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "pornbase-725c8",
+    "storage_bucket": "pornbase-725c8.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:818522047345:android:2797cc46b8eb1855122cd0",
+        "mobilesdk_app_id": "1:823008181343:android:8165e76fb08f389923afea",
         "android_client_info": {
           "package_name": "com.example.pharmacymanagerment"
         }
       },
       "oauth_client": [
         {
-          "client_id": "818522047345-glarolionso0hl2o95h6g4het9l783pn.apps.googleusercontent.com",
+          "client_id": "823008181343-00rr5b7k4f1ua0343se7jh6v01ni7p9e.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBvlX4wiGe6n0V2--AKk40KV6yr0Z2hY4U"
+          "current_key": "AIzaSyCSg-MoBbF5hHJ7sW9vQK5XUhgg2lkZ4ds"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "818522047345-glarolionso0hl2o95h6g4het9l783pn.apps.googleusercontent.com",
+              "client_id": "823008181343-00rr5b7k4f1ua0343se7jh6v01ni7p9e.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
