@@ -1,8 +1,11 @@
 package com.example.pharmacymanagerment;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -51,6 +54,14 @@ public class Admin extends AppCompatActivity {
                         .into(imageView36);
             }
         }
+
+        ImageView imageView37 = findViewById(R.id.imageView37);
+        imageView37.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Admin.this, AddProductActivity.class));
+            }
+        });
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
