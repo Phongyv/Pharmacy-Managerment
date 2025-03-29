@@ -69,7 +69,7 @@ public class AddProductActivity extends AppCompatActivity {
         progressDialog.setMessage("Đang xử lý...");
 
         // Thiết lập danh sách loại sản phẩm
-        String[] categories = {"Condom", "Medicine", "Vitamin", "Cosmetic"};
+        String[] categories = {"codom", "medicine", "vitamin", "comestic"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCategory.setAdapter(adapter);
