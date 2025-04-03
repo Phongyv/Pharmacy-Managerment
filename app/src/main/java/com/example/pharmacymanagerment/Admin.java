@@ -6,9 +6,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -43,6 +47,7 @@ public class Admin extends AppCompatActivity {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor(getColor(R.color.app_color));
 
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -75,7 +80,7 @@ public class Admin extends AppCompatActivity {
         productList = new ArrayList<>();
         adapter = new AdminProductAdapter(this, productList, product -> {
             // Xử lý khi bấm nút Thao tác
-            Toast.makeText(Admin.this, "Clicked: " + product.getName(), Toast.LENGTH_SHORT).show();
+            showProductDialog(product);
         });
 
         recyclerView.setAdapter(adapter);
@@ -148,6 +153,67 @@ public class Admin extends AppCompatActivity {
                 dialog.dismiss(); // Đóng hộp thoại
             }
         });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void showProductDialog(AdminProduct product) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View dialogView = inflater.inflate(R.layout.dialog_product_options, null);
+
+        ImageView imgProduct = dialogView.findViewById(R.id.imgProduct);
+        TextView tvProductName = dialogView.findViewById(R.id.tvProductName);
+        Button btnEdit = dialogView.findViewById(R.id.btnEdit);
+        Button btnDelete = dialogView.findViewById(R.id.btnDelete);
+        Button btnCancel = dialogView.findViewById(R.id.btnCancel);
+
+        // Set dữ liệu
+        tvProductName.setText(product.getName());
+
+        // Load ảnh sản phẩm
+        Glide.with(this)
+                .load(product.getImg())
+                .transform(new RoundedCornersTransformation(10))
+                .placeholder(R.drawable.placeholder)
+                .into(imgProduct);
+
+        builder.setView(dialogView);
+        AlertDialog dialog = builder.create();
+
+        // Xử lý khi bấm nút Sửa
+        btnEdit.setOnClickListener(v -> {
+            Intent intent = new Intent(Admin.this, EditProductActivity.class);
+            intent.putExtra("productId", product.getId());
+            startActivity(intent);
+            dialog.dismiss();
+        });
+
+        // Xử lý khi bấm nút Xóa
+        btnDelete.setOnClickListener(v -> {
+            showDeleteConfirmationDialog(product,dialog);
+        });
+
+        // Xử lý khi bấm nút Hủy
+        btnCancel.setOnClickListener(v -> dialog.dismiss());
+
+        dialog.show();
+    }
+
+    private void showDeleteConfirmationDialog(AdminProduct product, AlertDialog parentDialog) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Xác nhận xóa");
+        builder.setMessage("Bạn có chắc chắn muốn xóa sản phẩm này?");
+
+        builder.setPositiveButton("Xóa", (dialog, which) -> {
+            ProductManager productManager = new ProductManager();
+            productManager.deleteProduct(product.getId());
+            Toast.makeText(this,"Đã xóa sản phẩm "+ product.getName(), LENGTH_SHORT).show();
+            parentDialog.dismiss();
+        });
+
+        builder.setNegativeButton("Hủy", (dialog, which) -> dialog.dismiss());
 
         AlertDialog dialog = builder.create();
         dialog.show();
