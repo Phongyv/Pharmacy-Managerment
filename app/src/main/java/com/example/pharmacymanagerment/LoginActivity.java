@@ -109,9 +109,32 @@ public class LoginActivity extends AppCompatActivity {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
             // Đăng nhập thành công, chuyển đến màn hình chính
             Toast.makeText(this,"Đăng nhập thành công",LENGTH_SHORT).show();
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            finish(); // Kết thúc Activity đăng nhập
+            if (account != null) {
+                String userEmail = account.getEmail(); // Lấy email của người đăng nhập
+                db.collection("admins")
+                        .whereEqualTo("email", userEmail)
+                        .get()
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    Log.d("LoginActivity", "Admin found: " + document.getData());
+                                }
+                                if (!task.getResult().isEmpty()) {
+                                    Log.d("LoginActivity", "User is Admin!");
+                                    startActivity(new Intent(this, Admin.class));
+                                } else {
+                                    Log.d("LoginActivity", "User is NOT Admin!");
+                                    startActivity(new Intent(this, MainActivity.class));
+                                }
+                            } else {
+                                Log.e("LoginActivity", "Firestore query failed", task.getException());
+                            }
+                            finish();
+                        });
+
+            }
+
+
         } catch (ApiException e) {
             Toast.makeText(this,"Đăng nhập thất bại",LENGTH_SHORT).show();
             Log.w("LoginActivity", "signInResult:failed code=" + e.getStatusCode());
@@ -121,32 +144,5 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-
-        if (account != null) {
-            String userEmail = account.getEmail(); // Lấy email của người đăng nhập
-
-            db.collection("admin") // Giả sử bạn có collection "admins" chứa danh sách email Admin
-                    .whereEqualTo("email", userEmail) // Kiểm tra email có trong danh sách Admin không
-                    .get()
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful() && !task.getResult().isEmpty()) {
-                            // Nếu email tồn tại trong danh sách Admin
-                            new NotificationHelper(this).showNotification(
-                                    "Pharmacy Managerment", "Xin chào Admin " + account.getDisplayName()
-                            );
-                            startActivity(new Intent(this, Admin.class));
-                        } else {
-                            // Nếu không phải Admin
-                            new NotificationHelper(this).showNotification(
-                                    "Pharmacy Managerment", "Xin chào " + account.getDisplayName()
-                            );
-                            startActivity(new Intent(this, MainActivity.class));
-                        }
-                        finish();
-                    })
-                    .addOnFailureListener(e -> Log.e("LoginActivity", "Lỗi kiểm tra Admin", e));
-        }
     }
-
 }
