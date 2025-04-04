@@ -29,7 +29,7 @@
         android:roundIcon="@drawable/medical_cross"
         android:supportsRtl="true"
         android:theme="@style/Theme.PharmacyManagerment"
-        tools:targetApi="31">
+        tools:targetApi="35">
         <receiver android:name=".PeriodReminderReceiver"/>
         <activity
             android:name=".EditProductActivity"
@@ -42,7 +42,7 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".ProductItem"
             android:exported="false" />
@@ -91,7 +91,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
-
+                <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
@@ -100,7 +100,6 @@
                 <data android:scheme="zalopay" />
                 <data android:host="paymentresult" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>
