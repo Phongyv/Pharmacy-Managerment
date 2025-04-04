@@ -45,8 +45,8 @@ public class OrderFragment extends Fragment implements CartManager.CartListener 
         cartManager = new CartManager(this);
         cartManager.getCartItemsAndCalculateTotal(requireContext());
 
-        view15.setOnClickListener(v -> paymentHelper.payWithZaloPay("0338191380", "100000", "Thanh toán đơn hàng"));
-        view16.setOnClickListener(v -> paymentHelper.payWithMoMo("0338191380", "100000", "Thanh toán đơn hàng"));
+        view15.setOnClickListener(v -> paymentHelper.openZaloPay());
+        view16.setOnClickListener(v -> paymentHelper.openMoMo());
 
         return view;
     }
