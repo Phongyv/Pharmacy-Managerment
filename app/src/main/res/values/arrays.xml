@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="measurement_times">
+        <item>Sáng đói</item>
+        <item>Sau ăn 2h</item>
+        <item>Trước khi ngủ</item>
+        <item>Ngẫu nhiên</item>
+    </string-array>
+</resources>

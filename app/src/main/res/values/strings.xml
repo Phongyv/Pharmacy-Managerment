@@ -1,5 +1,16 @@
 <resources>
     <string name="app_name">Pharmacy Managerment</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="activity_levels">
+        <item>Ít vận động (BMR x 1.2)</item>
+        <item>Vận động nhẹ (BMR x 1.375)</item>
+        <item>Vận động vừa (BMR x 1.55)</item>
+        <item>Vận động nhiều (BMR x 1.725)</item>
+        <item>Rất năng động (BMR x 1.9)</item>
+    </string-array>
+
+
+
+
 </resources>

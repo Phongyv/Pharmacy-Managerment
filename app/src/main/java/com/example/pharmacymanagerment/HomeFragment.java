@@ -32,7 +32,7 @@ public class HomeFragment extends Fragment {
     private static final int REQUEST_CALL = 1;
     private String phoneNumber = "0876066774";
     View view9,view10,view11,view12;
-    View view8;
+    View view8,view3,view4,view5,view6,view7;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -71,6 +71,16 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        view3 = view.findViewById(R.id.view3);
+        view3.setOnClickListener(v -> startActivity(new Intent(requireContext(), BmiCaculate.class)));
+        view4 = view.findViewById(R.id.view4);
+        view4.setOnClickListener(v -> startActivity(new Intent(requireContext(), BmrCaculate.class)));
+        view5 = view.findViewById(R.id.view5);
+        view5.setOnClickListener(v -> startActivity(new Intent(requireContext(), BloodPressure.class)));
+        view6 = view.findViewById(R.id.view6);
+        view6.setOnClickListener(v -> startActivity(new Intent(requireContext(), PeriodWatch.class)));
+        view7 = view.findViewById(R.id.view7);
+        view7.setOnClickListener(v -> startActivity(new Intent(requireContext(), BloodSugar.class)));
         view8 = view.findViewById(R.id.view8);
         view8.setOnClickListener(v -> makePhoneCall());
 

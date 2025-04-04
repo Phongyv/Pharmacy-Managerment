@@ -40,6 +40,11 @@ public class EditProductActivity extends AppCompatActivity {
         btnUpdate = findViewById(R.id.btnUpdate);
         btnChooseImage = findViewById(R.id.btnChooseImage);
 
+        Button button5 = findViewById(R.id.button5);
+        button5.setOnClickListener(v -> {
+            finish();
+        });
+
         db = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
 
