@@ -41,7 +41,7 @@ public class MedicineActivity extends AppCompatActivity {
         setContentView(R.layout.activity_medicine);
 
         title = findViewById(R.id.textView25);
-        title.setText("Thuoc");
+        title.setText("Thuốc");
 
         imageView15 = findViewById(R.id.imageView15);
         imageView15.setOnClickListener(new View.OnClickListener() {
