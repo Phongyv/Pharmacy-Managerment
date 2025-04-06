@@ -45,6 +45,34 @@ public class CartManager {
                 .addOnFailureListener(e -> listener.onError("Lỗi lấy giỏ hàng: " + e.getMessage()));
     }
 
+//    private void calculateTotal(List<String> cart) {
+//        final double[] totalPrice = {0};
+//        final List<CartItem> cartItems = new ArrayList<>();
+//        final int[] count = {0};
+//
+//        for (String productId : cart) {
+//            db.collection("products").document(productId)
+//                    .get()
+//                    .addOnSuccessListener(productSnapshot -> {
+//                        if (productSnapshot.exists()) {
+//                            String name = productSnapshot.getString("name");
+//                            Double price = productSnapshot.getDouble("price");
+//
+//                            if (price != null) {
+//                                totalPrice[0] += price;
+//                                cartItems.add(new CartItem(name, price));
+//                            }
+//
+//                            count[0]++;
+//                            if (count[0] == cart.size()) {
+//                                listener.onCartLoaded(cartItems, totalPrice[0]);
+//                            }
+//                        }
+//                    })
+//                    .addOnFailureListener(e -> listener.onError("Lỗi lấy sản phẩm: " + e.getMessage()));
+//        }
+//    }
+
     private void calculateTotal(List<String> cart) {
         final double[] totalPrice = {0};
         final List<CartItem> cartItems = new ArrayList<>();
@@ -62,16 +90,24 @@ public class CartManager {
                                 totalPrice[0] += price;
                                 cartItems.add(new CartItem(name, price));
                             }
+                        }
 
-                            count[0]++;
-                            if (count[0] == cart.size()) {
-                                listener.onCartLoaded(cartItems, totalPrice[0]);
-                            }
+                        // Tăng count dù sản phẩm không tồn tại
+                        count[0]++;
+                        if (count[0] == cart.size()) {
+                            listener.onCartLoaded(cartItems, totalPrice[0]);
                         }
                     })
-                    .addOnFailureListener(e -> listener.onError("Lỗi lấy sản phẩm: " + e.getMessage()));
+                    .addOnFailureListener(e -> {
+                        // Tăng count dù lỗi
+                        count[0]++;
+                        if (count[0] == cart.size()) {
+                            listener.onCartLoaded(cartItems, totalPrice[0]);
+                        }
+                    });
         }
     }
+
 
     public interface CartListener {
         void onCartLoaded(List<CartItem> cartItems, double total);

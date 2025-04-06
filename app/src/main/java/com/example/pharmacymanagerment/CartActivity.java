@@ -102,12 +102,51 @@ public class CartActivity extends AppCompatActivity {
                 });
     }
 
+//    private void fetchProductDetails(List<String> productIds) {
+//        List<Map<String, Object>> products = new ArrayList<>();
+//        for (String productId : productIds) {
+//            db.collection("products").document(productId)
+//                    .get()
+//                    .addOnCompleteListener(productTask -> {
+//                        if (productTask.isSuccessful()) {
+//                            DocumentSnapshot productDocument = productTask.getResult();
+//                            if (productDocument.exists()) {
+//                                Map<String, Object> productData = new HashMap<>();
+//                                productData.put("productId", productId);
+//                                productData.put("name", productDocument.getString("name"));
+//                                productData.put("price", productDocument.getDouble("price"));
+//                                productData.put("img", productDocument.getString("img"));
+//                                products.add(productData);
+//                            } else {
+//                                Toast.makeText(this,"Không tìm thấy sản phẩm: ",Toast.LENGTH_SHORT).show();
+//                                Log.d("Firestore", "Không tìm thấy sản phẩm: " + productId);
+//                            }
+//
+//                            if (products.size() == productIds.size()) {
+//                                cartItems.clear();
+//                                cartItems.addAll(products);
+//                                cartAdapter.notifyDataSetChanged();
+//                                shimmerFrameLayout.stopShimmer();
+//                                shimmerFrameLayout.setVisibility(View.GONE);
+//                            }
+//                        } else {
+//                            Toast.makeText(this,"Lỗi không tìm thấy sản phẩm: ",Toast.LENGTH_SHORT).show();
+//                            Log.e("Firestore", "Lỗi khi lấy sản phẩm: ", productTask.getException());
+//                        }
+//                    });
+//        }
+//    }
+
     private void fetchProductDetails(List<String> productIds) {
         List<Map<String, Object>> products = new ArrayList<>();
+        final int[] completedCount = {0}; // Dùng để đếm số lượt hoàn tất
+
         for (String productId : productIds) {
             db.collection("products").document(productId)
                     .get()
                     .addOnCompleteListener(productTask -> {
+                        completedCount[0]++;
+
                         if (productTask.isSuccessful()) {
                             DocumentSnapshot productDocument = productTask.getResult();
                             if (productDocument.exists()) {
@@ -118,20 +157,23 @@ public class CartActivity extends AppCompatActivity {
                                 productData.put("img", productDocument.getString("img"));
                                 products.add(productData);
                             } else {
-                                Toast.makeText(this,"Không tìm thấy sản phẩm: ",Toast.LENGTH_SHORT).show();
                                 Log.d("Firestore", "Không tìm thấy sản phẩm: " + productId);
                             }
-
-                            if (products.size() == productIds.size()) {
-                                cartItems.clear();
-                                cartItems.addAll(products);
-                                cartAdapter.notifyDataSetChanged();
-                                shimmerFrameLayout.stopShimmer();
-                                shimmerFrameLayout.setVisibility(View.GONE);
-                            }
                         } else {
-                            Toast.makeText(this,"Lỗi không tìm thấy sản phẩm: ",Toast.LENGTH_SHORT).show();
                             Log.e("Firestore", "Lỗi khi lấy sản phẩm: ", productTask.getException());
+                        }
+
+                        // Khi hoàn tất tất cả các sản phẩm
+                        if (completedCount[0] == productIds.size()) {
+                            cartItems.clear();
+                            cartItems.addAll(products);
+                            cartAdapter.notifyDataSetChanged();
+                            shimmerFrameLayout.stopShimmer();
+                            shimmerFrameLayout.setVisibility(View.GONE);
+
+                            if (products.isEmpty()) {
+                                Toast.makeText(this, "Không tìm thấy sản phẩm nào trong giỏ hàng.", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     });
         }
