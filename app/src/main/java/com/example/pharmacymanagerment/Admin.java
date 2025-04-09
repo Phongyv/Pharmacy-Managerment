@@ -59,12 +59,12 @@ public class Admin extends AppCompatActivity {
             showLogoutDialog();
         });
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        if (account != null){
+        if (account.getPhotoUrl() != null ){
             Glide.with(this)
                     .load(account.getPhotoUrl())
                     .transform(new RoundedCornersTransformation(50)) // Chỉnh sửa 30 để thay đổi độ bo tròn
                     .into(imageView36);
-        } else{
+        }else{
             Glide.with(this)
                     .load(R.drawable.medical_cross)
                     .into(imageView36);
