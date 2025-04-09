@@ -4,6 +4,7 @@ import static android.widget.Toast.LENGTH_SHORT;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -73,6 +74,12 @@ public class Admin extends AppCompatActivity {
         ImageView imageView37 = findViewById(R.id.imageView37);
         imageView37.setOnClickListener(v->{
             startActivity(new Intent(this, AddProductActivity.class));
+        });
+
+
+        ImageView imageView45 = findViewById(R.id.imageView45);
+        imageView45.setOnClickListener(v->{
+            startActivity(new Intent(this,UserManager.class));
         });
 
         recyclerView = findViewById(R.id.recyclerView);
